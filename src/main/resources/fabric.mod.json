@@ -12,9 +12,14 @@
 		"sources": "https://github.com/arcade-smasher/player-radar/",
 		"issues": "https://github.com/arcade-smasher/player-radar/issues/"
 	},
+	"custom": {
+    	"modmenu": {
+    		"update_checker": true
+    	}
+  	},
 	"license": "MIT",
 	"icon": "assets/playernotifier/icon.png",
-	"environment": "*",
+	"environment": "client",
 	"entrypoints": {
 		"client": [
 			"com.playernotifier.PlayerNotifierClient"
@@ -23,7 +28,7 @@
 	"mixins": [],
 	"depends": {
 		"fabricloader": ">=0.16.9",
-		"minecraft": "~1.20.1",
+		"minecraft": "~1.20",
 		"java": ">=17",
 		"fabric-api": "*"
 	},
