@@ -1,0 +1,27 @@
+{
+	"schemaVersion": 1,
+	"id": "playernotifier",
+	"version": "${version}",
+	"name": "Player Notifier",
+	"description": "Get notified when a player is within the loaded chunks. Client-side.",
+	"authors": [
+		"Arcadesmasher"
+	],
+	"contact": {},
+	"license": "MIT",
+	"icon": "assets/playernotifier/icon.png",
+	"environment": "*",
+	"entrypoints": {
+		"client": [
+			"com.playernotifier.PlayerNotifierClient"
+		]
+	},
+	"mixins": [],
+	"depends": {
+		"fabricloader": ">=0.16.9",
+		"minecraft": "1.20.4",
+		"java": ">=17",
+		"fabric-api": "*"
+	},
+	"suggests": {}
+}
