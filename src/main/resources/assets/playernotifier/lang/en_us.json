@@ -1,0 +1,36 @@
+{
+    "playernotifier.midnightconfig.title": "Player Radar Config",
+    "playernotifier.midnightconfig.all": "General",
+
+
+    "playernotifier.midnightconfig.visuals": "Visuals",
+
+
+    "playernotifier.midnightconfig.showChat": "Show chat alert",
+    "playernotifier.midnightconfig.showChat.tooltip": "Show an alert in the chat when a player enters your chunks.",
+
+    "playernotifier.midnightconfig.showHUD": "Show HUD alert",
+    "playernotifier.midnightconfig.showHUD.tooltip": "Show an alert above the hotbar when a player enters your chunks.",
+
+
+    "playernotifier.midnightconfig.audio": "Audio",
+
+
+    "playernotifier.midnightconfig.playSound": "Play alert sound",
+    "playernotifier.midnightconfig.playSound.tooltip": "Play an alert sound when a player enters your chunks.",
+
+    "playernotifier.midnightconfig.timesToPlaySound": "Times to play sound",
+    "playernotifier.midnightconfig.timesToPlaySound.tooltip": "The amount of times the alert \"ding\" sound will be played.",
+
+    "playernotifier.midnightconfig.soundInterval": "Alert sound interval",
+    "playernotifier.midnightconfig.soundInterval.tooltip": "How long to wait in between each \"ding\" sound in §9ticks§r.\n\nMultiply seconds by 20 to get ticks.",
+
+    "playernotifier.midnightconfig.soundVolume": "Alert sound volume",
+    "playernotifier.midnightconfig.soundVolume.tooltip": "The volume of each \"ding\" sound as a percentage.",
+
+    "playernotifier.midnightconfig.soundPitch": "Alert sound pitch",
+    "playernotifier.midnightconfig.soundPitch.tooltip": "The pitch of each \"ding\" sound as a percentage.",
+
+
+    "playernotifier.playerEnteredChunks": "%s has entered your chunks!"
+}

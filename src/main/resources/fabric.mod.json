@@ -23,6 +23,9 @@
 	"entrypoints": {
 		"client": [
 			"com.playernotifier.PlayerNotifierClient"
+		],
+		"main": [
+			"com.playernotifier.PlayerNotifier"
 		]
 	},
 	"mixins": [],
@@ -30,7 +33,7 @@
 		"fabricloader": ">=0.16.9",
 		"minecraft": "~1.20",
 		"java": ">=17",
-		"fabric-api": "*"
-	},
-	"suggests": {}
+		"fabric-api": "*",
+		"midnightlib": "*"
+	}
 }
