@@ -2,9 +2,7 @@
     "playernotifier.midnightconfig.title": "Player Radar Config",
     "playernotifier.midnightconfig.all": "General",
 
-
     "playernotifier.midnightconfig.visuals": "Visuals",
-
 
     "playernotifier.midnightconfig.showChat": "Show chat alert",
     "playernotifier.midnightconfig.showChat.tooltip": "Show an alert in the chat when a player enters your chunks.",
@@ -12,9 +10,7 @@
     "playernotifier.midnightconfig.showHUD": "Show HUD alert",
     "playernotifier.midnightconfig.showHUD.tooltip": "Show an alert above the hotbar when a player enters your chunks.",
 
-
     "playernotifier.midnightconfig.audio": "Audio",
-
 
     "playernotifier.midnightconfig.playSound": "Play alert sound",
     "playernotifier.midnightconfig.playSound.tooltip": "Play an alert sound when a player enters your chunks.",
@@ -31,6 +27,16 @@
     "playernotifier.midnightconfig.soundPitch": "Alert sound pitch",
     "playernotifier.midnightconfig.soundPitch.tooltip": "The pitch of each \"ding\" sound as a percentage.",
 
+    "playernotifier.playerEnteredChunks": "%s has entered your chunks!",
 
-    "playernotifier.playerEnteredChunks": "%s has entered your chunks!"
+    "playernotifier.blacklist.added": "Added %s to the blacklist.",
+    "playernotifier.blacklist.removed": "Removed %s from the blacklist.",
+    "playernotifier.blacklist.not_found": "Player %s is not online. You can use the player's UUID instead to add them while they are offline.",
+    "playernotifier.blacklist.uuid_added": "Added UUID %s to the blacklist.",
+    "playernotifier.blacklist.uuid_removed": "Removed UUID %s from the blacklist.",
+    "playernotifier.blacklist.invalid_uuid": "Invalid UUID format. Make sure the UUID is separated by hyphens.",
+    "playernotifier.blacklist.already_blacklisted": "This player is already in the blacklist. No changes were made.",
+    "playernotifier.blacklist.not_blacklisted": "This player is already not in the blacklist. No changes were made.",
+    "playernotifier.blacklist.uuid_already_blacklisted": "This UUID is already in the blacklist. No changes were made.",
+    "playernotifier.blacklist.uuid_not_blacklisted": "This UUID is already not in the blacklist. No changes were made."
 }
