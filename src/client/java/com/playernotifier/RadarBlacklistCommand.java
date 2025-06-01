@@ -20,40 +20,39 @@ public class RadarBlacklistCommand {
                     .then(ClientCommandManager.argument("player", StringArgumentType.string())
                         .executes(context -> {
                             String playerName = StringArgumentType.getString(context, "player");
-                            UUID playerUUID = getPlayerUUID(playerName);
-
-                            if (playerUUID != null) {
+                            PlayerUtils.getPlayerUUID(playerName).thenAccept(playerUUID -> {
+                                if (playerUUID == null) {
+                                    sendError("playernotifier.blacklist.not_found", playerName);
+                                    return;
+                                }
                                 if (BlacklistManager.isPlayerIgnored(playerUUID)) {
                                     sendFeedback("playernotifier.blacklist.already_blacklisted", playerName);
                                 } else {
                                     BlacklistManager.addPlayer(playerUUID);
                                     sendFeedback("playernotifier.blacklist.added", playerName);
                                 }
-                            } else {
-                                sendFeedback("playernotifier.blacklist.not_found", playerName);
-                            }
-
+                            });
                             return Command.SINGLE_SUCCESS;
                         })
+
                     )
                 )
                 .then(ClientCommandManager.literal("remove")
                     .then(ClientCommandManager.argument("player", StringArgumentType.string())
                         .executes(context -> {
                             String playerName = StringArgumentType.getString(context, "player");
-                            UUID playerUUID = getPlayerUUID(playerName);
-
-                            if (playerUUID != null) {
+                            PlayerUtils.getPlayerUUID(playerName).thenAccept(playerUUID -> {
+                                if (playerUUID == null) {
+                                    sendError("playernotifier.blacklist.not_found", playerName);
+                                    return;
+                                }
                                 if (!BlacklistManager.isPlayerIgnored(playerUUID)) {
                                     sendFeedback("playernotifier.blacklist.not_blacklisted", playerName);
                                 } else {
                                     BlacklistManager.removePlayer(playerUUID);
                                     sendFeedback("playernotifier.blacklist.removed", playerName);
                                 }
-                            } else {
-                                sendFeedback("playernotifier.blacklist.not_found", playerName);
-                            }
-
+                            });
                             return Command.SINGLE_SUCCESS;
                         })
                     )
@@ -100,18 +99,6 @@ public class RadarBlacklistCommand {
                 )
             );
         });
-    }
-
-    private static UUID getPlayerUUID(String playerName) {
-        MinecraftClient client = MinecraftClient.getInstance();
-        if (client.player != null && client.getNetworkHandler() != null) {
-            for (PlayerListEntry entry : client.getNetworkHandler().getPlayerList()) {
-                if (entry.getProfile().getName().equalsIgnoreCase(playerName)) {
-                    return entry.getProfile().getId();
-                }
-            }
-        }
-        return null;
     }
 
     private static void sendFeedback(String translationKey, Object... args) {

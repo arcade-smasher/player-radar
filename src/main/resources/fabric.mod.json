@@ -31,9 +31,11 @@
 	"mixins": [],
 	"depends": {
 		"fabricloader": ">=0.16.9",
-		"minecraft": "~1.20",
-		"java": ">=17",
-		"fabric-api": "*",
+		"minecraft": "${minecraft_version_range}",
+		"java": "${java_version_range}",
+		"fabric-api": "*"
+	},
+	"suggests": {
 		"midnightlib": "*"
 	}
 }
