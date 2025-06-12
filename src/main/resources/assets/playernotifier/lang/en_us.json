@@ -31,12 +31,30 @@
 
     "playernotifier.blacklist.added": "Added %s to the blacklist.",
     "playernotifier.blacklist.removed": "Removed %s from the blacklist.",
-    "playernotifier.blacklist.not_found": "Player %s is not online. You can use the player's UUID instead to add them while they are offline.",
+    "playernotifier.blacklist.not_found": "Player %s does not exist.",
     "playernotifier.blacklist.uuid_added": "Added UUID %s to the blacklist.",
     "playernotifier.blacklist.uuid_removed": "Removed UUID %s from the blacklist.",
     "playernotifier.blacklist.invalid_uuid": "Invalid UUID format. Make sure the UUID is separated by hyphens.",
-    "playernotifier.blacklist.already_blacklisted": "This player is already in the blacklist. No changes were made.",
-    "playernotifier.blacklist.not_blacklisted": "This player is already not in the blacklist. No changes were made.",
-    "playernotifier.blacklist.uuid_already_blacklisted": "This UUID is already in the blacklist. No changes were made.",
-    "playernotifier.blacklist.uuid_not_blacklisted": "This UUID is already not in the blacklist. No changes were made."
+    "playernotifier.blacklist.already": "This player is already in the blacklist. No changes were made.",
+    "playernotifier.blacklist.not": "This player is already not in the blacklist. No changes were made.",
+    "playernotifier.blacklist.uuid_already": "This UUID is already in the blacklist. No changes were made.",
+    "playernotifier.blacklist.uuid_not": "This UUID is already not in the blacklist. No changes were made.",
+
+    "playernotifier.whitelist.added": "Added %s to the whitelist.",
+    "playernotifier.whitelist.removed": "Removed %s from the whitelist.",
+    "playernotifier.whitelist.not_found": "Player %s does not exist.",
+    "playernotifier.whitelist.uuid_added": "Added UUID %s to the whitelist.",
+    "playernotifier.whitelist.uuid_removed": "Removed UUID %s from the whitelist.",
+    "playernotifier.whitelist.invalid_uuid": "Invalid UUID format. Make sure the UUID is separated by hyphens.",
+    "playernotifier.whitelist.already": "This player is already in the whitelist. No changes were made.",
+    "playernotifier.whitelist.not": "This player is already not in the whitelist. No changes were made.",
+    "playernotifier.whitelist.uuid_already": "This UUID is already in the whitelist. No changes were made.",
+    "playernotifier.whitelist.uuid_not": "This UUID is already not in the whitelist. No changes were made.",
+
+    "playernotifier.mode.blacklist": "The radar mode is currently set to blacklist",
+    "playernotifier.mode.whitelist": "The radar mode is currently set to whitelist",
+    "playernotifier.mode.set.blacklist": "The radar mode is now set to blacklist",
+    "playernotifier.mode.set.whitelist": "The radar mode is now set to whitelist",
+    "playernotifier.mode.already_blacklist": "The radar mode is already set to blacklist",
+    "playernotifier.mode.already_whitelist": "The radar mode is already set to whitelist"
 }
