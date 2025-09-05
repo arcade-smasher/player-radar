@@ -1,9 +1,15 @@
 package com.playernotifier;
 
 import com.playernotifier.config.RadarManager;
+
+import eu.midnightdust.lib.config.MidnightConfig;
+
 import com.playernotifier.config.ConfigWrapper;
+import com.playernotifier.config.MidnightConfigInit;
+
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
+import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.sound.SoundEvents;
@@ -13,6 +19,7 @@ import java.util.Set;
 import java.util.UUID;
 
 public class PlayerNotifierClient implements ClientModInitializer {
+	public static final String MOD_ID = "playernotifier";
     private final Set<PlayerEntity> loadedPlayers = new HashSet<>();
     private int ticks = 0;
     private int timesPlayed = 0;
@@ -20,6 +27,8 @@ public class PlayerNotifierClient implements ClientModInitializer {
 
     @Override
     public void onInitializeClient() {
+        MidnightConfig.init(MOD_ID, MidnightConfigInit.class);
+
         RadarBlacklistCommand.register();
 
         RadarManager.initialize();
@@ -30,17 +39,20 @@ public class PlayerNotifierClient implements ClientModInitializer {
                 if (client.world != null) {
                     Set<PlayerEntity> currentPlayers = new HashSet<>(client.world.getPlayers());
                     for (PlayerEntity player : currentPlayers) {
-                        UUID playerUUID = player.getUuid();
-                        if (("blacklist".equals(RadarManager.getRadarMode()) ? RadarManager.blacklist.isPlayerListed(playerUUID) : !RadarManager.whitelist.isPlayerListed(playerUUID)) || player.equals(client.player)) {
-                            continue;
-                        }
+                        UUID playerUUID = player.getGameProfile().getId();
+                        if (("blacklist".equals(RadarManager.getRadarMode()) ? RadarManager.blacklist.isPlayerListed(playerUUID) : !RadarManager.whitelist.isPlayerListed(playerUUID)) || player.equals(client.player)) continue;
+
                         if (!loadedPlayers.contains(player)) {
+                            String playerName = player.getGameProfile().getName();
+                            Text playerDisplayName = player.getName();
+                            if (playerUUID == null || playerUUID.version() != 4) continue;
+                            if (playerName == null || playerName.replaceAll("§.", "").trim().isEmpty()) continue;
                             if (ConfigWrapper.showChat() == true) {
-                                client.player.sendMessage(Text.translatable("playernotifier.playerEnteredChunks", player.getName().getString()), false);
+                                client.player.sendMessage(Text.translatable("playernotifier.playerEnteredChunks", ConfigWrapper.showDisplayNames() ? playerDisplayName : playerName), false);
                             }
                             if (ConfigWrapper.showHUD() == true) {
                                 client.inGameHud.setOverlayMessage(
-                                    Text.translatable("playernotifier.playerEnteredChunks", player.getName().getString()), false
+                                    Text.translatable("playernotifier.playerEnteredChunks", ConfigWrapper.showDisplayNames() ? playerDisplayName : playerName), false
                                 );
                             }
                             if (ConfigWrapper.playSound() == true) {

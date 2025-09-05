@@ -10,6 +10,9 @@
     "playernotifier.midnightconfig.showHUD": "Show HUD alert",
     "playernotifier.midnightconfig.showHUD.tooltip": "Show an alert above the hotbar when a player enters your chunks.",
 
+    "playernotifier.midnightconfig.showDisplayNames": "Show display names",
+    "playernotifier.midnightconfig.showDisplayNames.tooltip": "Show display names instead of the player's actual username.\nUsually this won't do much, but it might show nicked or geyser players by adding a dot to their username.",
+
     "playernotifier.midnightconfig.audio": "Audio",
 
     "playernotifier.midnightconfig.playSound": "Play alert sound",

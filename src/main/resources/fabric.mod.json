@@ -23,9 +23,6 @@
 	"entrypoints": {
 		"client": [
 			"com.playernotifier.PlayerNotifierClient"
-		],
-		"main": [
-			"com.playernotifier.PlayerNotifier"
 		]
 	},
 	"mixins": [],
