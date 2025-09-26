@@ -67,21 +67,27 @@ public class PlayerNotifierClient implements ClientModInitializer {
         });
         ClientTickEvents.END_CLIENT_TICK.register(client -> {
             if (alarming) {
+                if (client.player == null) {
+                    stopAlarm();
+                    return;
+                }
                 ticks++;
                 if (ticks % ConfigWrapper.soundInterval() == 0) {
                     client.player.playSound(SoundEvents.BLOCK_NOTE_BLOCK_BELL.value(), ConfigWrapper.soundVolume() / 100.0F, ConfigWrapper.soundPitch() / 100.0F);
                     timesPlayed++;
                 }
-                if (timesPlayed == ConfigWrapper.timesToPlaySound()) {
-                    timesPlayed = 0;
-                    alarming = false;
-                    ticks = 0;
-                }
+                if (timesPlayed == ConfigWrapper.timesToPlaySound()) stopAlarm();
             }
         });
     }
 
     public void alarm() {
         alarming = true;
+    }
+
+    public void stopAlarm() {
+        alarming = false;
+        timesPlayed = 0;
+        ticks = 0;
     }
 }
