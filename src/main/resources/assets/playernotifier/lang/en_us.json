@@ -59,5 +59,8 @@
     "playernotifier.mode.set.blacklist": "The radar mode is now set to blacklist",
     "playernotifier.mode.set.whitelist": "The radar mode is now set to whitelist",
     "playernotifier.mode.already_blacklist": "The radar mode is already set to blacklist",
-    "playernotifier.mode.already_whitelist": "The radar mode is already set to whitelist"
+    "playernotifier.mode.already_whitelist": "The radar mode is already set to whitelist",
+
+    "playernotifier.toggle.true": "The radar is now enabled",
+    "playernotifier.toggle.false": "The radar is now disabled"
 }

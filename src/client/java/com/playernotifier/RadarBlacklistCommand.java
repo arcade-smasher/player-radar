@@ -131,6 +131,14 @@ public class RadarBlacklistCommand {
                         return Command.SINGLE_SUCCESS;
                     })
                 )
+                .then(ClientCommandManager.literal("toggle")
+                    .executes(context -> {
+                        boolean radarEnabled = RadarManager.getRadarEnabled();
+                        RadarManager.setRadarEnabled(!radarEnabled);
+                        sendFeedback("playernotifier.toggle." + !radarEnabled);
+                        return Command.SINGLE_SUCCESS;
+                    })
+                )
             );
         });
     }
@@ -141,6 +149,13 @@ public class RadarBlacklistCommand {
             client.player.sendMessage(Text.translatable(translationKey, args), false);
         }
     }
+
+    // private static void sendFeedback(Text literalText, Object... args) {
+    //     MinecraftClient client = MinecraftClient.getInstance();
+    //     if (client.player != null) {
+    //         client.player.sendMessage(literalText, false);
+    //     }
+    // }
 
     private static void sendError(String translationKey, Object... args) {
         MinecraftClient client = MinecraftClient.getInstance();

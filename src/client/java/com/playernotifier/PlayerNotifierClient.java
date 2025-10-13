@@ -34,6 +34,7 @@ public class PlayerNotifierClient implements ClientModInitializer {
         RadarManager.initialize();
 
         ClientTickEvents.END_WORLD_TICK.register(world -> {
+            if (!RadarManager.getRadarEnabled()) return;
             if (world != null) {
                 MinecraftClient client = MinecraftClient.getInstance();
                 if (client.world != null) {

@@ -76,8 +76,17 @@ public class RadarManager {
         return settings.radarMode;
     }
 
+    public static void setRadarEnabled(boolean radarEnabled) {
+        settings.radarEnabled = radarEnabled;
+    }
+
+    public static boolean getRadarEnabled() {
+        return settings.radarEnabled;
+    }
+
     private static class Settings {
         String radarMode = "blacklist";
+        boolean radarEnabled = true;
     }
 
     public static class RadarList {
@@ -126,6 +135,10 @@ public class RadarManager {
 
         public boolean isPlayerListed(UUID playerUUID) {
             return list.contains(playerUUID.toString());
+        }
+
+        public Set<String> getList() {
+            return list;
         }
 
         private void ensureDirectory() {
