@@ -40,11 +40,11 @@ public class PlayerNotifierClient implements ClientModInitializer {
                 if (client.world != null) {
                     Set<PlayerEntity> currentPlayers = new HashSet<>(client.world.getPlayers());
                     for (PlayerEntity player : currentPlayers) {
-                        UUID playerUUID = player.getGameProfile().getId();
+                        UUID playerUUID = GameProfileCompat.getId(player.getGameProfile());
                         if (("blacklist".equals(RadarManager.getRadarMode()) ? RadarManager.blacklist.isPlayerListed(playerUUID) : !RadarManager.whitelist.isPlayerListed(playerUUID)) || player.equals(client.player)) continue;
 
                         if (!loadedPlayers.contains(player)) {
-                            String playerName = player.getGameProfile().getName();
+                            String playerName = GameProfileCompat.getName(player.getGameProfile());
                             Text playerDisplayName = player.getName();
                             if (playerUUID == null || playerUUID.version() != 4) continue;
                             if (playerName == null || playerName.replaceAll("§.", "").trim().isEmpty()) continue;
