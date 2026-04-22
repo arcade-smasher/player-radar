@@ -19,4 +19,4 @@ A clear and concise description of what you expected to happen without the bug.
  - You are using the latest version of the Fabric Loader.
  - You have the MidnightLib mod installed on its latest version.
 
-If the requirements listed above are not completed, please give a valid reason as to why, otherwise the bug report may be closed.
+If the requirements listed above are not met, please give a valid reason as to why, otherwise the bug report may be closed.
