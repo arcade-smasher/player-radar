@@ -3,20 +3,20 @@ package com.playernotifier;
 import com.mojang.brigadier.Command;
 import com.mojang.brigadier.arguments.StringArgumentType;
 import com.playernotifier.config.RadarManager;
-import net.fabricmc.fabric.api.client.command.v2.ClientCommandManager;
+import net.fabricmc.fabric.api.client.command.v2.ClientCommands;
 import net.fabricmc.fabric.api.client.command.v2.ClientCommandRegistrationCallback;
-import net.minecraft.client.MinecraftClient;
-import net.minecraft.text.Text;
-import net.minecraft.util.Formatting;
+import net.minecraft.client.Minecraft;
+import net.minecraft.network.chat.Component;
+import net.minecraft.ChatFormatting;
 
 import java.util.UUID;
 
 public class RadarBlacklistCommand {
     public static void register() {
         ClientCommandRegistrationCallback.EVENT.register((dispatcher, registryAccess) -> {
-            dispatcher.register(ClientCommandManager.literal("radarlist")
-                .then(ClientCommandManager.literal("add")
-                    .then(ClientCommandManager.argument("player", StringArgumentType.string())
+            dispatcher.register(ClientCommands.literal("radarlist")
+                .then(ClientCommands.literal("add")
+                    .then(ClientCommands.argument("player", StringArgumentType.string())
                         .executes(context -> {
                             String radarMode = RadarManager.getRadarMode();
                             String playerName = StringArgumentType.getString(context, "player");
@@ -37,8 +37,8 @@ public class RadarBlacklistCommand {
 
                     )
                 )
-                .then(ClientCommandManager.literal("remove")
-                    .then(ClientCommandManager.argument("player", StringArgumentType.string())
+                .then(ClientCommands.literal("remove")
+                    .then(ClientCommands.argument("player", StringArgumentType.string())
                         .executes(context -> {
                             String radarMode = RadarManager.getRadarMode();
                             String playerName = StringArgumentType.getString(context, "player");
@@ -58,9 +58,9 @@ public class RadarBlacklistCommand {
                         })
                     )
                 )
-                .then(ClientCommandManager.literal("uuid")
-                    .then(ClientCommandManager.literal("add")
-                        .then(ClientCommandManager.argument("playerUUID", StringArgumentType.string())
+                .then(ClientCommands.literal("uuid")
+                    .then(ClientCommands.literal("add")
+                        .then(ClientCommands.argument("playerUUID", StringArgumentType.string())
                             .executes(context -> {
                                 String radarMode = RadarManager.getRadarMode();
                                 String uuidString = StringArgumentType.getString(context, "playerUUID");
@@ -79,8 +79,8 @@ public class RadarBlacklistCommand {
                             })
                         )
                     )
-                    .then(ClientCommandManager.literal("remove")
-                        .then(ClientCommandManager.argument("playerUUID", StringArgumentType.string())
+                    .then(ClientCommands.literal("remove")
+                        .then(ClientCommands.argument("playerUUID", StringArgumentType.string())
                             .executes(context -> {
                                 String radarMode = RadarManager.getRadarMode();
                                 String uuidString = StringArgumentType.getString(context, "playerUUID");
@@ -100,8 +100,8 @@ public class RadarBlacklistCommand {
                         )
                     )
                 )
-                .then(ClientCommandManager.literal("mode")
-                    .then(ClientCommandManager.literal("blacklist")
+                .then(ClientCommands.literal("mode")
+                    .then(ClientCommands.literal("blacklist")
                         .executes(context -> {
                             String radarMode = RadarManager.getRadarMode();
                             if (radarMode == "blacklist") {
@@ -113,7 +113,7 @@ public class RadarBlacklistCommand {
                             return Command.SINGLE_SUCCESS;
                         })
                     )
-                    .then(ClientCommandManager.literal("whitelist")
+                    .then(ClientCommands.literal("whitelist")
                         .executes(context -> {
                             String radarMode = RadarManager.getRadarMode();
                             if (radarMode == "whitelist") {
@@ -131,7 +131,7 @@ public class RadarBlacklistCommand {
                         return Command.SINGLE_SUCCESS;
                     })
                 )
-                .then(ClientCommandManager.literal("toggle")
+                .then(ClientCommands.literal("toggle")
                     .executes(context -> {
                         boolean radarEnabled = RadarManager.getRadarEnabled();
                         RadarManager.setRadarEnabled(!radarEnabled);
@@ -144,23 +144,23 @@ public class RadarBlacklistCommand {
     }
 
     private static void sendFeedback(String translationKey, Object... args) {
-        MinecraftClient client = MinecraftClient.getInstance();
+        Minecraft client = Minecraft.getInstance();
         if (client.player != null) {
-            client.player.sendMessage(Text.translatable(translationKey, args), false);
+            client.player.sendSystemMessage(Component.translatable(translationKey, args));
         }
     }
 
     // private static void sendFeedback(Text literalText, Object... args) {
-    //     MinecraftClient client = MinecraftClient.getInstance();
+    //     Minecraft client = Minecraft.getInstance();
     //     if (client.player != null) {
-    //         client.player.sendMessage(literalText, false);
+    //         client.player.displayClientMessage(literalText, false);
     //     }
     // }
 
     private static void sendError(String translationKey, Object... args) {
-        MinecraftClient client = MinecraftClient.getInstance();
+        Minecraft client = Minecraft.getInstance();
         if (client.player != null) {
-            client.player.sendMessage(Text.translatable(translationKey, args).formatted(Formatting.RED), false);
+            client.player.sendSystemMessage(Component.translatable(translationKey, args).withStyle(ChatFormatting.RED));
         }
     }
 }
