@@ -3,8 +3,8 @@ package com.playernotifier;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 
-import net.minecraft.client.MinecraftClient;
-import net.minecraft.client.network.PlayerListEntry;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.multiplayer.PlayerInfo;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
@@ -35,11 +35,11 @@ public class PlayerUtils {
             return CompletableFuture.completedFuture(uuidCache.get(normalized).orElse(null));
         }
 
-        MinecraftClient client = MinecraftClient.getInstance();
-        if (client.player != null && client.getNetworkHandler() != null) {
-            for (PlayerListEntry entry : client.getNetworkHandler().getPlayerList()) {
-                if (entry.getProfile().getName().equalsIgnoreCase(playerName)) {
-                    UUID uuid = entry.getProfile().getId();
+        Minecraft client = Minecraft.getInstance();
+        if (client.player != null && client.getConnection() != null) {
+            for (PlayerInfo entry : client.getConnection().getOnlinePlayers()) {
+                if (GameProfileCompat.getName(entry.getProfile()).equalsIgnoreCase(playerName)) {
+                    UUID uuid = GameProfileCompat.getId(entry.getProfile());
                     uuidCache.put(normalized, Optional.of(uuid));
                     return CompletableFuture.completedFuture(uuid);
                 }

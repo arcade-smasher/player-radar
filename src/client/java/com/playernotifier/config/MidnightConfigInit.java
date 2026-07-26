@@ -9,6 +9,7 @@ public class MidnightConfigInit extends MidnightConfig {
 
     @Entry(category = ALL) public static boolean showChat = true;
     @Entry(category = ALL) public static boolean showHUD = true;
+    @Entry(category = ALL) public static boolean showDisplayNames = true;
 
     @Comment(category = ALL, centered = true) public static Comment audio;
 
