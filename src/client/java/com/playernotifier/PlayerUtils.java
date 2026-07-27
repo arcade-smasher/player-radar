@@ -3,6 +3,7 @@ package com.playernotifier;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 
+import com.playernotifier.compat.GameProfileCompat;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.multiplayer.PlayerInfo;
 
@@ -22,68 +23,68 @@ import java.util.concurrent.ConcurrentHashMap;
 
 public class PlayerUtils {
 
-    private static final Map<String, Optional<UUID>> uuidCache = new ConcurrentHashMap<>();
+	private static final Map<String, Optional<UUID>> uuidCache = new ConcurrentHashMap<>();
 
-    public static CompletableFuture<UUID> getPlayerUUID(String playerName) {
-        if (playerName == null || playerName.isBlank()) {
-            return CompletableFuture.completedFuture(null);
-        }
+	public static CompletableFuture<UUID> getPlayerUUID(String playerName) {
+		if (playerName == null || playerName.isBlank()) {
+			return CompletableFuture.completedFuture(null);
+		}
 
-        String normalized = playerName.toLowerCase();
+		String normalized = playerName.toLowerCase();
 
-        if (uuidCache.containsKey(normalized)) {
-            return CompletableFuture.completedFuture(uuidCache.get(normalized).orElse(null));
-        }
+		if (uuidCache.containsKey(normalized)) {
+			return CompletableFuture.completedFuture(uuidCache.get(normalized).orElse(null));
+		}
 
-        Minecraft client = Minecraft.getInstance();
-        if (client.player != null && client.getConnection() != null) {
-            for (PlayerInfo entry : client.getConnection().getOnlinePlayers()) {
-                if (GameProfileCompat.getName(entry.getProfile()).equalsIgnoreCase(playerName)) {
-                    UUID uuid = GameProfileCompat.getId(entry.getProfile());
-                    uuidCache.put(normalized, Optional.of(uuid));
-                    return CompletableFuture.completedFuture(uuid);
-                }
-            }
-        }
+		Minecraft client = Minecraft.getInstance();
+		if (client.player != null && client.getConnection() != null) {
+			for (PlayerInfo entry : client.getConnection().getOnlinePlayers()) {
+				if (GameProfileCompat.getName(entry.getProfile()).equalsIgnoreCase(playerName)) {
+					UUID uuid = GameProfileCompat.getId(entry.getProfile());
+					uuidCache.put(normalized, Optional.of(uuid));
+					return CompletableFuture.completedFuture(uuid);
+				}
+			}
+		}
 
-        return CompletableFuture.supplyAsync(() -> {
-            UUID fetched = fetchUUIDFromMojang(playerName);
-            uuidCache.put(normalized, Optional.ofNullable(fetched));
-            return fetched;
-        });
-    }
+		return CompletableFuture.supplyAsync(() -> {
+			UUID fetched = fetchUUIDFromMojang(playerName);
+			uuidCache.put(normalized, Optional.ofNullable(fetched));
+			return fetched;
+		});
+	}
 
-    private static UUID fetchUUIDFromMojang(String playerName) {
-        try {
-            String encodedName = URLEncoder.encode(playerName, StandardCharsets.UTF_8);
-            URL url = URI.create("https://api.mojang.com/users/profiles/minecraft/" + encodedName).toURL();
-            HttpURLConnection conn = (HttpURLConnection) url.openConnection();
-            conn.setRequestMethod("GET");
-            conn.setConnectTimeout(3000);
-            conn.setReadTimeout(3000);
+	private static UUID fetchUUIDFromMojang(String playerName) {
+		try {
+			String encodedName = URLEncoder.encode(playerName, StandardCharsets.UTF_8);
+			URL url = URI.create("https://api.mojang.com/users/profiles/minecraft/" + encodedName).toURL();
+			HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+			conn.setRequestMethod("GET");
+			conn.setConnectTimeout(3000);
+			conn.setReadTimeout(3000);
 
-            int status = conn.getResponseCode();
-            if (status == 200) {
-                try (InputStream input = conn.getInputStream();
-                     InputStreamReader isr = new InputStreamReader(input);
-                     BufferedReader reader = new BufferedReader(isr)) {
+			int status = conn.getResponseCode();
+			if (status == 200) {
+				try (InputStream input = conn.getInputStream();
+				     InputStreamReader isr = new InputStreamReader(input);
+				     BufferedReader reader = new BufferedReader(isr)) {
 
-                    JsonObject json = JsonParser.parseReader(reader).getAsJsonObject();
-                    String id = json.get("id").getAsString();
-                    return fromUndashedUUID(id);
-                }
-            } else {
-                return null;
-            }
-        } catch (Exception e) {
-            return null;
-        }
-    }
+					JsonObject json = JsonParser.parseReader(reader).getAsJsonObject();
+					String id = json.get("id").getAsString();
+					return fromUndashedUUID(id);
+				}
+			} else {
+				return null;
+			}
+		} catch (Exception e) {
+			return null;
+		}
+	}
 
-    private static UUID fromUndashedUUID(String id) {
-        return UUID.fromString(id.replaceFirst(
-                "(\\w{8})(\\w{4})(\\w{4})(\\w{4})(\\w{12})",
-                "$1-$2-$3-$4-$5"
-        ));
-    }
+	private static UUID fromUndashedUUID(String id) {
+		return UUID.fromString(id.replaceFirst(
+				"(\\w{8})(\\w{4})(\\w{4})(\\w{4})(\\w{12})",
+				"$1-$2-$3-$4-$5"
+		));
+	}
 }
